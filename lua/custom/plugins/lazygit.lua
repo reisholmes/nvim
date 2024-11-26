@@ -1,3 +1,4 @@
+-- https://github.com/kdheepak/lazygit.nvim
 return {
   -- LazyGit
   -- nvim v0.8.0

@@ -78,3 +78,15 @@ vim.opt.smartindent = true
 
 -- Enable folding using default foldmarker
 vim.opt.foldmethod = 'marker'
+
+-- A TAB character looks like 4 spaces
+vim.opt.tabstop = 4
+
+-- Pressing the TAB key will insert spaces instead of a TAB character
+vim.opt.expandtab = true
+
+-- Number of spaces inserted instead of a TAB character
+vim.opt.softtabstop = 4
+
+-- Number of spaces inserted when indenting
+vim.opt.shiftwidth = 4
