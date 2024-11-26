@@ -1,6 +1,8 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+local kmset = vim.keymap.set -- Variable for keymap setting
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -46,3 +48,32 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Copy to Clipboard
+kmset('n', '<leader>Y', '"+yg_')
+kmset('n', '<leader>y', '"+y')
+kmset('n', '<leader>yy', '"+yy')
+kmset('v', '<leader>y', '"+y')
+
+-- Paste from clipboard
+kmset('n', '<leader>P', '"+P')
+kmset('v', '<leader>P', '"+P')
+
+-- Keep copied word in buffer when pasting, send overwritten word to void register
+kmset('x', '<leader>p', [["_dP]])
+
+-- Delete word to void register, don't override buffer
+kmset('n', '<leader>d', [["_d]])
+kmset('v', '<leader>d', [["_d]])
+
+-- When in visual mode, allows moving highlighted lines
+kmset('v', 'J', ":m '>+1<CR>gv=gv")
+kmset('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Keep cursor centered when half page jumping
+kmset('n', '<C-d>', '<C-d>zz')
+kmset('n', '<C-u>', '<C-u>zz')
+
+-- Keep cursor in the middle when searching
+kmset('n', 'n', 'nzzzv')
+kmset('n', 'N', 'Nzzzv')
