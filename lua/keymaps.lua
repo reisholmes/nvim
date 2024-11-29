@@ -77,3 +77,10 @@ kmset('n', '<C-u>', '<C-u>zz')
 -- Keep cursor in the middle when searching
 kmset('n', 'n', 'nzzzv')
 kmset('n', 'N', 'Nzzzv')
+
+-- Buffer Manipulation
+kmset('n', '<leader>bd', '<cmd>bd', { desc = '[B]uffer Delete' })
+kmset('n', '<leader>b0', '<cmd>bfirst<cr>', { desc = '[B]uffer First' })
+kmset('n', '<leader>b$', '<cmd>blast<cr>', { desc = '[B]uffer Last' })
+kmset('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer Next' })
+kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })

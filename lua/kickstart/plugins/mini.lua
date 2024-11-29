@@ -34,6 +34,17 @@ return {
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+
+      -- Highlight word under cursor
+      require('mini.cursorword').setup()
+
+      -- Mini icons, used with mini-tabline
+      require('mini.icons').setup()
+
+      -- Mini tabline
+      local tabline = require 'mini.tabline'
+      -- Use icons
+      tabline.setup { use_icons = true }
     end,
   },
 }
