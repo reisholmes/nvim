@@ -80,13 +80,13 @@ vim.opt.smartindent = true
 vim.opt.foldmethod = 'marker'
 
 -- A TAB character looks like 4 spaces
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 
 -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.expandtab = true
 
 -- Number of spaces inserted instead of a TAB character
-vim.opt.softtabstop = 4
+vim.opt.softtabstop = 2
 
 -- Number of spaces inserted when indenting
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
