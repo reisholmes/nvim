@@ -91,3 +91,6 @@ kmset('n', '<leader>b0', '<cmd>bfirst<cr>', { desc = '[B]uffer First' })
 kmset('n', '<leader>b$', '<cmd>blast<cr>', { desc = '[B]uffer Last' })
 kmset('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer Next' })
 kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
+
+-- Git-Blame
+kmset('n', '<leader>g', '<cmd>GitBlameToggle<cr>', { desc = '[G]itBlame toggle' })
