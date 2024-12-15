@@ -3,12 +3,20 @@
 
 local kmset = vim.keymap.set -- Variable for keymap setting
 
+-- which-key local for adding groups etc
+local wk = require 'which-key'
+wk.add {
+  { '<leader>b', group = '[B]uffers' }, -- group
+  { '<leader>l', group = '[L]ua cmds & [L]azy[G]it' }, -- group
+  { '<leader>T', group = '[T]rouble' }, -- group
+}
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list open' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -50,14 +58,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- vim: ts=2 sts=2 sw=2 et
 
 -- Copy to Clipboard
-kmset('n', '<leader>Y', '"+yg_')
-kmset('n', '<leader>y', '"+y')
-kmset('n', '<leader>yy', '"+yy')
-kmset('v', '<leader>y', '"+y')
+kmset('n', '<leader>Y', '"+yg_', { desc = '[Y]ank to last non-blank char into clipboard' })
+kmset('n', '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
+kmset('n', '<leader>yy', '"+yy', { desc = '[Y]ank line into clipboard' })
+kmset('v', '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
 
 -- Paste from clipboard
-kmset('n', '<leader>P', '"+P')
-kmset('v', '<leader>P', '"+P')
+kmset('n', '<leader>P', '"+P', { desc = '[P]aste from clipboard' })
 
 -- Keep copied word in buffer when pasting, send overwritten word to void register
 kmset('x', '<leader>p', [["_dP]])
@@ -79,7 +86,7 @@ kmset('n', 'n', 'nzzzv')
 kmset('n', 'N', 'Nzzzv')
 
 -- Buffer Manipulation
-kmset('n', '<leader>bd', '<cmd>bd', { desc = '[B]uffer Delete' })
+kmset('n', '<leader>bd', '<cmd>bd<cr>', { desc = '[B]uffer Delete' })
 kmset('n', '<leader>b0', '<cmd>bfirst<cr>', { desc = '[B]uffer First' })
 kmset('n', '<leader>b$', '<cmd>blast<cr>', { desc = '[B]uffer Last' })
 kmset('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer Next' })
