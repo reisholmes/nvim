@@ -94,3 +94,6 @@ kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
 
 -- Git-Blame
 kmset('n', '<leader>g', '<cmd>GitBlameToggle<cr>', { desc = '[G]itBlame toggle' })
+
+-- Mini files
+kmset('n', '<leader>f', '<cmd>lua MiniFiles.open()<cr>', { desc = '[F]iletree' })

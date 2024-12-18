@@ -2,6 +2,15 @@ return {
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      require('mini.files').setup {
+        windows = {
+          -- Show preview of file/dir under cursor
+          preview = true,
+          -- Width of preview window
+          width_preview = 40,
+        },
+      }
+
       -- Better Around/Inside textobjects
       --
       -- Examples:
