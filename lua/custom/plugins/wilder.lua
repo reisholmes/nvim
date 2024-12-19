@@ -49,26 +49,36 @@ return {
       ),
     })
 
-    -- How the popup looks
+    -- How the popup looks, gradient can slow down performance
     local gradient = {
-      '#8bd5ca',
-      '#91d7e3',
-      '#7dc4e4',
+      -- reis catppuccin
+      '#cad3f5',
       '#8aadf4',
-      '#c6a0f6',
-      '#f5bde6',
-      '#ee99a0',
-      '#ed8796',
+      '#7dc4ef',
     }
 
-    for i, fg in ipairs(gradient) do
-      gradient[i] = wilder.make_hl('WilderGradient' .. i, 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = fg } })
+    -- set to true to try out gradients from the above
+    local use_gradients = false
+
+    -- sets to use gradients or not based on value of use_gradients
+    local highlighters
+    local highlights_
+    if use_gradients ~= true then
+      highlighters = {
+        wilder.pcre2_highlighter(),
+        wilder.lua_fzy_highlighter(),
+      }
+      highlights_ = { accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#7dc4e4' } }) }
+    else
+      for i, fg in ipairs(gradient) do
+        gradient[i] = wilder.make_hl('WilderGradient' .. i, 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = fg } })
+      end
+      highlighters = wilder.highlighter_with_gradient {
+        wilder.pcre2_highlighter(),
+        wilder.lua_fzy_highlighter(),
+      }
+      highlights_ = { gradient = gradient }
     end
-
-    local highlighters = wilder.highlighter_with_gradient {
-      wilder.pcre2_highlighter(),
-      wilder.lua_fzy_highlighter(),
-    }
 
     local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme {
       pumblend = 20,
@@ -87,10 +97,7 @@ return {
         ' ',
         wilder.popupmenu_scrollbar(),
       },
-      highlights = {
-        --accent = wilder.make_hl('WilderAccent', 'Pmenu', {{a = 1}, {a = 1}, {foreground = '#f4468f'}}),
-        gradient = gradient,
-      },
+      highlights = highlights_,
     })
 
     local wildmenu_renderer = wilder.wildmenu_renderer {
@@ -98,10 +105,7 @@ return {
       separator = ' · ',
       left = { ' ', wilder.wildmenu_spinner(), ' ' },
       right = { ' ', wilder.wildmenu_index() },
-      highlights = {
-        -- accent = wilder.make_hl("WilderAccent", "Pmenu", { { a = 1 }, { a = 1 }, { foreground = "#f4468f" } }),
-        gradient = gradient,
-      },
+      highlights = highlights_,
       apply_incsearch_fix = true,
     }
 
