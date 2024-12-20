@@ -97,3 +97,6 @@ kmset('n', '<leader>g', '<cmd>GitBlameToggle<cr>', { desc = '[G]itBlame toggle' 
 
 -- Mini files
 kmset('n', '<leader>f', '<cmd>lua MiniFiles.open()<cr>', { desc = '[F]iletree' })
+
+-- Show notifier history
+kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = '[N]otifier history' })
