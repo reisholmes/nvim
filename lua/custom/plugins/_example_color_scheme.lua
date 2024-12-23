@@ -1,3 +1,4 @@
+return {}
 --https://www.reddit.com/r/neovim/comments/xcsatv/how_can_i_configure_telescope_to_look_like_this/
 
 --local colors = require('catppuccin.palettes').get_palette()
