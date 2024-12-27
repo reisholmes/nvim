@@ -191,6 +191,8 @@ return {
         --
         -- terraformls = {},
         -- tflint = {},
+        powershell_es = {},
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
