@@ -105,3 +105,6 @@ kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 
 vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
 vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
 vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
+
+-- Neoclip
+vim.keymap.set('n', '<leader>o', '<cmd>Telescope neoclip<CR>', { desc = 'Ne[O]clip' })
