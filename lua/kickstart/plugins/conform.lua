@@ -33,11 +33,27 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        ps1 = { 'powershell' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      formatters = {
+        powershell = {
+          command = 'pwsh',
+          args = {
+            '-NoLogo',
+            '-NoProfile',
+            '-NonInteractive',
+            '-Command',
+            '(Invoke-Formatter',
+            '(Get-Content -Raw -Path',
+            '$FILENAME',
+            ') -Settings /Users/reis.holmes/.local/share/powershell/Modules/PSScriptAnalyzer/*/Settings/CodeFormattingOTBS.psd1 ).Trim()',
+          },
+        },
       },
     },
   },

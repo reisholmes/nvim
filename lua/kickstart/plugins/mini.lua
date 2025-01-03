@@ -54,6 +54,9 @@ return {
       local tabline = require 'mini.tabline'
       -- Use icons
       tabline.setup { use_icons = true }
+
+      -- Mini align
+      require('mini.align').setup()
     end,
   },
 }
