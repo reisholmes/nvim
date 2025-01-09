@@ -45,6 +45,8 @@ return {
         }
       end,
 
+      -- Get the current
+
       formatters_by_ft = {
         lua = { 'stylua' },
         ps1 = { 'powershell' },
@@ -65,7 +67,7 @@ return {
             '(Invoke-Formatter',
             '(Get-Content -Raw -Path',
             '$FILENAME',
-            ') -Settings /Users/reis.holmes/.local/share/powershell/Modules/PSScriptAnalyzer/*/Settings/CodeFormattingOTBS.psd1 ).Trim()',
+            ') -Settings ~/.config/nvim/assets/formatters/CodeFormattingOTBS.psd1 ).Trim()',
           },
         },
       },

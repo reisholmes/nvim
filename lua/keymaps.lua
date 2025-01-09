@@ -67,15 +67,14 @@ kmset('v', '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
 kmset('n', '<leader>P', '"+P', { desc = '[P]aste from clipboard' })
 
 -- Keep copied word in buffer when pasting, send overwritten word to void register
-kmset('x', '<leader>p', [["_dP]])
+kmset('x', '<leader>p', [["_dP]], { desc = '[P]aste but keep word in buffer' })
 
 -- Delete word to void register, don't override buffer
-kmset('n', '<leader>d', [["_d]])
-kmset('v', '<leader>d', [["_d]])
+kmset({ 'n', 'v' }, '<leader>D', [["_d]], { desc = "[D]elete word to void register, don't override buffer" })
 
 -- When in visual mode, allows moving highlighted lines
-kmset('v', 'J', ":m '>+1<CR>gv=gv")
-kmset('v', 'K', ":m '<-2<CR>gv=gv")
+kmset('v', 'j', ":m '>+1<cr>gv=gv", { desc = 'move selection up' })
+kmset('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selection down' })
 
 -- Keep cursor centered when half page jumping
 kmset('n', '<C-d>', '<C-d>zz')
