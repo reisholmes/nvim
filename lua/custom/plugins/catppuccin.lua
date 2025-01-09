@@ -9,7 +9,7 @@ return {
         transparent_background = true,
 
         integrations = {
-          blink_cmp = true,
+          cmp = true,
           leap = true,
           native_lsp = {
             enabled = true,

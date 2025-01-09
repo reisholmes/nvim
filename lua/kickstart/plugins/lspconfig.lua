@@ -195,6 +195,7 @@ return {
         -- tflint = {},
         powershell_es = {
           bundle_path = bundle_path,
+          on_attach = on_attach,
           settings = {
             powershell = {
               codeFormatting = {
@@ -219,6 +220,11 @@ return {
           },
         },
       }
+
+      -- Add borders on shift-k documentation hover show
+      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+
+      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
