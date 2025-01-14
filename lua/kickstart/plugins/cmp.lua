@@ -117,12 +117,12 @@ return {
           mapping = cmp.mapping.preset.cmdline(),
           sources = cmp.config.sources({
             { name = 'path' },
+            { name = 'render-markdown' },
           }, {
-            {
-              name = 'cmdline',
-              option = {
-                ignore_cmds = { 'Man', '!' },
-              },
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' },
+              {},
             },
           }),
         }),
@@ -137,6 +137,7 @@ return {
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
+          { name = 'markdown' },
         },
       }
     end,

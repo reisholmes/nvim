@@ -49,6 +49,7 @@ return {
 
       formatters_by_ft = {
         lua = { 'stylua' },
+        markdown = { 'markdownlint-cli2' },
         ps1 = { 'powershell' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
