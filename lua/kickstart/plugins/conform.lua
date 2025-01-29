@@ -22,6 +22,7 @@ return {
         local disable_filetypes = { 'ps1' }
 
         if vim.tbl_contains(disable_filetypes, vim.bo[bufnr].filetype) then
+          vim.lsp.buf.format()
           return
         end
         return {
@@ -29,20 +30,6 @@ return {
           lsp_format = 'fallback',
         }
       end,
-
-      format_after_save = function(bufnr)
-        local enabled_filetypes = { ps1 = true, powershell = true }
-
-        if vim.tbl_contains(enabled_filetypes, vim.bo[bufnr].filetype) then
-          return
-        end
-        return {
-          timeout_ms = 3000,
-          lsp_format = 'fallback',
-        }
-      end,
-
-      -- Get the current
 
       formatters_by_ft = {
         lua = { 'stylua' },
@@ -54,21 +41,7 @@ return {
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
-      formatters = {
-        powershell = {
-          command = 'pwsh',
-          args = {
-            '-NoLogo',
-            '-NoProfile',
-            '-NonInteractive',
-            '-Command',
-            '(Invoke-Formatter',
-            '(Get-Content -Raw -Path',
-            '$FILENAME',
-            ') -Settings ~/.config/nvim/assets/formatters/CodeFormattingOTBS.psd1 ).Trim()',
-          },
-        },
-      },
+      formatters = {},
     },
   },
 }
