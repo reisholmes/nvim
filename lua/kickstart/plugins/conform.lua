@@ -14,34 +14,31 @@ return {
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, ps1 = true }
-        local lsp_format_opt
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = 'never'
-        else
-          lsp_format_opt = 'fallback'
-        end
-        return {
-          timeout_ms = 500,
-          lsp_format = lsp_format_opt,
-        }
-      end,
+        local disable_filetypes = { 'ps1' }
 
-      format_after_save = function(bufnr)
-        local enabled_filetypes = { ps1 = true }
-        local lsp_format_opt
-        if enabled_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = 'fallback'
+        if vim.tbl_contains(disable_filetypes, vim.bo[bufnr].filetype) then
           return
         end
         return {
           timeout_ms = 3000,
-          lsp_format = lsp_format_opt,
+          lsp_format = 'fallback',
+        }
+      end,
+
+      format_after_save = function(bufnr)
+        local enabled_filetypes = { ps1 = true, powershell = true }
+
+        if vim.tbl_contains(enabled_filetypes, vim.bo[bufnr].filetype) then
+          return
+        end
+        return {
+          timeout_ms = 3000,
+          lsp_format = 'fallback',
         }
       end,
 
@@ -50,7 +47,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         markdown = { 'markdownlint-cli2' },
-        ps1 = { 'powershell' },
+        ps1 = { 'powershell', lsp_format = 'never' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

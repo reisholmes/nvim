@@ -73,7 +73,7 @@ kmset('x', '<leader>p', [["_dP]], { desc = '[P]aste but keep word in buffer' })
 kmset({ 'n', 'v' }, '<leader>D', [["_d]], { desc = "[D]elete word to void register, don't override buffer" })
 
 -- When in visual mode, allows moving highlighted lines
-kmset('v', 'j', ":m '>+1<cr>gv=gv", { desc = 'move selection up' })
+kmset('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'move selection up' })
 kmset('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selection down' })
 
 -- Keep cursor centered when half page jumping
