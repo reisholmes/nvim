@@ -57,6 +57,9 @@ return {
 
       -- Mini align
       require('mini.align').setup()
+
+      -- Mini operators
+      require('mini.operators').setup()
     end,
   },
 }
