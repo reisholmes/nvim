@@ -8,7 +8,13 @@ return {
 
   config = function()
     local wilder = require 'wilder'
-    wilder.setup { modes = { ':', '/', '?' } }
+    wilder.setup {
+      modes = { ':', '/', '?' },
+      next_key = '<C-n>',
+      previous_key = '<C-p>',
+      accept_key = '<C-y>',
+      reject_key = '<C-o>',
+    }
 
     wilder.set_option('pipeline', {
       wilder.branch(
