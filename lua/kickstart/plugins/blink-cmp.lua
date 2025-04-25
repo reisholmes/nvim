@@ -76,9 +76,10 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'render-markdown' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'markdown' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink' },
         },
       },
 
@@ -99,6 +100,7 @@ return {
       -- CmdLine Options
       -- https://cmp.saghen.dev/modes/cmdline.html
       cmdline = {
+        enabled = true,
         completion = { menu = { auto_show = true } },
 
         keymap = { preset = 'cmdline' },
