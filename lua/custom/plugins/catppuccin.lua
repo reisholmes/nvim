@@ -5,12 +5,13 @@ return {
 
     init = function()
       require('catppuccin').setup {
-        flavour = 'macchiato',
-        transparent_background = true,
+        flavour = 'mocha',
+        transparent_background = false,
 
         integrations = {
-          cmp = true,
-          leap = true,
+          blink_cmp = true,
+          lsp_trouble = true,
+          mini = { enabled = true },
           native_lsp = {
             enabled = true,
             virtual_text = {
@@ -31,6 +32,9 @@ return {
               background = true,
             },
           },
+          render_markdown = true,
+          telescope = { enabled = true },
+          which_key = true,
         },
       }
 
