@@ -33,6 +33,7 @@ return {
 
       formatters_by_ft = {
         lua = { 'stylua' },
+        json = { 'jq' },
         markdown = { 'markdownlint-cli2' },
         nix = { 'alejandra' },
         ps1 = { 'powershell', lsp_format = 'never' },
