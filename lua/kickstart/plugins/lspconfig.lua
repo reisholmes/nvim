@@ -245,7 +245,8 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local mason_registry = require 'mason-registry'
-      local bundle_path = mason_registry.get_package('powershell-editor-services'):get_install_path()
+      local_bundle_path = vim.fn.expand("$MASON/share/powershell-editor-services/")
+      -- local bundle_path = mason_registry.get_package('powershell-editor-services'):get_install_path()
       local servers = {
         -- clangd = {},
         -- gopls = {},
