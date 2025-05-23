@@ -5,7 +5,7 @@ return {
   ---@type Flash.Config
   opts = {
     jump = {
-      autojump = true,
+      autojump = false,
     },
     modes = {
       search = {
