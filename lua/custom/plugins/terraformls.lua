@@ -1,8 +1,8 @@
 return {
-  require('lspconfig').terraformls.setup {
+  vim.lsp.config('terraformls.setup', {
     cmd = { 'terraform-ls', 'serve' },
     filetypes = { 'terraform', 'tf' },
     settings = {},
-  },
-  require('lspconfig').tflint.setup {},
+  }),
+  vim.lsp.config('tflint.setup', {}),
 }
