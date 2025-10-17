@@ -1,5 +1,5 @@
 return {
-  require('lspconfig').nixd.setup {
+  vim.lsp.config('nixd.setup', {
     cmd = { 'nixd' },
     settings = {
       nixd = {
@@ -20,5 +20,5 @@ return {
         -- },
       },
     },
-  },
+  }),
 }
