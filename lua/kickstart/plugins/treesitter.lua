@@ -15,6 +15,7 @@ return {
         'luadoc',
         'markdown',
         'markdown_inline',
+        'nix',
         'powershell',
         'terraform',
         'query',
