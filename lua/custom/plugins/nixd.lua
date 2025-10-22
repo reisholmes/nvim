@@ -17,14 +17,21 @@ end
 local sysname = get_sysname()
 
 local function get_nix_path()
-  if string.find(sysname, 'reis-new') or string.find(sysname, 'rh-sb3') then
-    return '/home/reis/Documents/repos/nixCombined/flake.nix'
-  elseif string.find(sysname, 'reisholmes') then
-    return '/Users/reis.holmes/Documents/code/personal_repos/nix-darwin/flake.nix'
-  else
-    -- Default fallback
-    return '/Users/reis/Documents/repos/nixCombined/flake.nix'
+  -- List of potential flake paths to check
+  local paths = {
+    '/home/reis/Documents/repos/nixCombined/flake.nix',
+    '/Users/reis.holmes/Documents/code/personal_repos/nix-darwin/flake.nix',
+  }
+
+  -- Return the first path that exists
+  for _, path in ipairs(paths) do
+    if vim.uv.fs_stat(path) then
+      return path
+    end
   end
+
+  -- Default fallback if none exist
+  return '/Users/reis.holmes/Documents/code/personal_repos/nix-darwin/flake.nix'
 end
 
 local nix_path = get_nix_path()
