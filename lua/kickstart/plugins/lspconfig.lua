@@ -235,6 +235,114 @@ return {
       --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+      -- ## NIXPKGS NATIVE METHOD ##
+      -- Enable here when you have already got the language server installed on your system
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+      vim.lsp.enable { 'lua_ls', 'nixd', 'powershell_es', 'stylua' }
+
+      -- Add the LSP configs below
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
+            },
+            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            -- diagnostics = { disable = { 'missing-fields' } },
+          },
+        },
+      })
+
+      -- Functions for nixd
+      -- Function to get the correct flake path based on system name
+      local system_name = vim.uv.os_gethostname()
+      local function get_sysname()
+        if system_name == 'reis-new' then
+          return 'reis@reis-new'
+        elseif system_name == 'rh-sb3' then
+          return 'reis@rh-sb3'
+        elseif system_name == 'reisholmes' then
+          return 'reis.holmes@reis-work'
+        else
+          -- Default fallback - you can adjust this as needed
+          return 'reis@' .. system_name
+        end
+      end
+      local sysname = get_sysname()
+
+      -- Function to get the correct nix flake path
+      local function get_nix_path()
+        -- List of potential flake paths to check
+        local paths = {
+          '/home/reis/Documents/repos/nixCombined/flake.nix',
+          '/Users/reis.holmes/Documents/code/personal_repos/nix-darwin/flake.nix',
+        }
+
+        -- Return the first path that exists
+        for _, path in ipairs(paths) do
+          if vim.uv.fs_stat(path) then
+            return path
+          end
+        end
+
+        -- Default fallback if none exist
+        return '/Users/reis.holmes/Documents/code/personal_repos/nix-darwin/flake.nix'
+      end
+      local nix_path = get_nix_path()
+
+      vim.lsp.config('nixd', {
+        cmd = { 'nixd' },
+        filetypes = { 'nix' },
+        root_markers = { 'flake.nix', '.git' },
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = 'import (builtins.getFlake "' .. nix_path .. '")inputs.nixpkgs { }',
+            },
+            formatting = {
+              command = { 'alejandra' }, -- or nixfmt or nixpkgs-fmt
+            },
+            options = {
+              darwin = {
+                expr = '(builtins.getFlake "' .. nix_path .. '").darwinConfigurations."reis-work".options',
+              },
+              home_manager = {
+                expr = '(builtins.getFlake "' .. nix_path .. '").homeConfigurations."' .. sysname .. '".options',
+              },
+            },
+          },
+        },
+      })
+
+      -- Function to get the location of powershell editor services
+      local function get_pwsh_es_bundle_path()
+        local handle = io.popen 'which powershell-editor-services'
+        if handle then
+          local result = handle:read '*a'
+          handle:close()
+          if result then
+            -- strip out any whitespace
+            result = result:gsub('^%s*(.-)%s*$', '%1')
+            -- point it to the /lib/folder as that's where it's extracted
+            result = result:gsub('/bin/', '/lib/')
+            return result
+          end
+        end
+      end
+      local pwsh_es_bundle_path = get_pwsh_es_bundle_path()
+
+      vim.lsp.config('powershell_es', {
+        bundle_path = pwsh_es_bundle_path,
+        settings = {
+          powershell = {
+            codeFormatting = {
+              Preset = 'OTBS',
+            },
+          },
+        },
+      })
+
+      -- ## MASON INSTALL METHOD ##
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -244,9 +352,6 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local mason_registry = require 'mason-registry'
-      local bundle_path = vim.fn.expand '$MASON/share/powershell-editor-services/'
-      -- local bundle_path = mason_registry.get_package('powershell-editor-services'):get_install_path()
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -262,32 +367,32 @@ return {
         --
         -- terraformls = {},
         -- tflint = {},
-        powershell_es = {
-          bundle_path = bundle_path,
-          on_attach = on_attach,
-          settings = {
-            powershell = {
-              codeFormatting = {
-                Preset = 'OTBS',
-              },
-            },
-          },
-        },
+        --powershell_es = {
+        --  bundle_path = bundle_path,
+        --  on_attach = on_attach,
+        --  settings = {
+        --    powershell = {
+        --      codeFormatting = {
+        --        Preset = 'OTBS',
+        --      },
+        --    },
+        --  },
+        --},
 
-        lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
+        --lua_ls = {
+        --  -- cmd = { ... },
+        --  -- filetypes = { ... },
+        --  -- capabilities = {},
+        --  settings = {
+        --    Lua = {
+        --      completion = {
+        --        callSnippet = 'Replace',
+        --      },
+        --      -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+        --      -- diagnostics = { disable = { 'missing-fields' } },
+        --    },
+        --  },
+        --},
       }
 
       -- Add borders on shift-k documentation hover show
@@ -310,7 +415,7 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        --'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

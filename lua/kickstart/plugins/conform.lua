@@ -36,7 +36,6 @@ return {
         json = { 'jq' },
         markdown = { 'markdownlint-cli2' },
         nix = { 'alejandra' },
-        ps1 = { 'powershell', lsp_format = 'never' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -44,12 +43,7 @@ return {
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
 
-      formatters = {
-        powershell = {
-          command = '/usr/local/bin/pwsh',
-        },
-      },
+      formatters = {},
     },
   },
 }
--- vim: ts=2 sts=2 sw=2 et
