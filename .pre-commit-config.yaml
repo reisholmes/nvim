@@ -1,0 +1,62 @@
+# Pre-commit hooks for Neovim configuration
+# See https://pre-commit.com for more information
+repos:
+  # Lua formatting with StyLua
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v2.3.1
+    hooks:
+      - id: stylua
+        args: ['--config-path', 'stylua.toml']
+
+  # Lua linting with Luacheck
+  - repo: https://github.com/lunarmodules/luacheck
+    rev: v1.2.0
+    hooks:
+      - id: luacheck
+        args: ['--config', '.luacheckrc']
+
+  # General file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Remove trailing whitespace
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+        exclude: '\.(ps1|psd1|psm1)$'
+
+      # Ensure files end with newline
+      - id: end-of-file-fixer
+        exclude: '\.(ps1|psd1|psm1)$'
+
+      # Check for files that would conflict on case-insensitive filesystems
+      - id: check-case-conflict
+
+      # Check for merge conflicts
+      - id: check-merge-conflict
+
+      # Prevent large files from being committed
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+
+      # Check YAML syntax
+      - id: check-yaml
+        exclude: '^\.github/'
+
+      # Check for mixed line endings
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+        exclude: '\.(ps1|psd1|psm1)$'
+
+  # Check for common misspellings
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: ['--ignore-words-list', 'crate,nd,te,ue,ba']
+        exclude: |
+          (?x)^(
+            .*\.(ps1|psd1|psm1)$|
+            init\.lua$|
+            lua/keymaps\.lua$|
+            lua/kickstart/plugins/(telescope|gitsigns)\.lua$
+          )
