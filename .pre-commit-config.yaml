@@ -53,4 +53,10 @@ repos:
     hooks:
       - id: codespell
         args: ['--ignore-words-list', 'crate,nd,te,ue,ba']
-        exclude: '(\.(ps1|psd1|psm1)$|^init\.lua$|^lua/keymaps\.lua$|^lua/kickstart/plugins/(telescope|gitsigns)\.lua$)'
+        exclude: |
+          (?x)^(
+            .*\.(ps1|psd1|psm1)$|
+            init\.lua$|
+            lua/keymaps\.lua$|
+            lua/kickstart/plugins/(telescope|gitsigns)\.lua$
+          )

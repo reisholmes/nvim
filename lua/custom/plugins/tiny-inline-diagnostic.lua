@@ -5,14 +5,14 @@ return {
   config = function()
     -- Disable built-in virtual_text diagnostics
     -- Set high priority so diagnostics appear above other virtual text (like git-blame)
-    vim.diagnostic.config {
+    vim.diagnostic.config({
       virtual_text = false,
       -- Increase severity so diagnostics are prioritized
       severity_sort = true,
-    }
+    })
 
     -- Setup tiny-inline-diagnostic
-    require('tiny-inline-diagnostic').setup {
+    require('tiny-inline-diagnostic').setup({
       -- Preset options: 'modern', 'classic', 'minimal', 'powerline', 'ghost', 'simple', 'nonerdfont'
       preset = 'modern',
 
@@ -40,7 +40,7 @@ return {
 
         -- Virtual text priority (higher = displayed on top)
         virt_texts = {
-          priority = 9999, -- High priority to appear above git-blame
+          priority = 100, -- High priority to appear above git-blame
         },
       },
 
@@ -70,7 +70,7 @@ return {
         background = 'CursorLine',
         mixing_color = 'None',
       },
-    }
+    })
   end,
   keys = {
     {

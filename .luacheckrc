@@ -39,7 +39,3 @@ exclude_files = {
 
 -- Set maximum line length (relaxed)
 max_line_length = 120
-
--- Allow unused arguments starting with underscore
-unused_args = false
-unused = false
