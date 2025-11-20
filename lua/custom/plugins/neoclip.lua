@@ -6,7 +6,7 @@ return {
     -- {'ibhagwan/fzf-lua'},
   },
   config = function()
-    require('neoclip').setup {
+    require('neoclip').setup({
       keys = {
         telescope = {
           i = {
@@ -14,6 +14,6 @@ return {
           },
         },
       },
-    }
+    })
   end,
 }

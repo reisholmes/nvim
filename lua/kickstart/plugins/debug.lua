@@ -64,7 +64,7 @@ return {
     {
       '<leader>dB',
       function()
-        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+        require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
       end,
       desc = 'Debug: Set Breakpoint',
     },
@@ -78,10 +78,10 @@ return {
     },
   },
   config = function()
-    local dap = require 'dap'
-    local dapui = require 'dapui'
+    local dap = require('dap')
+    local dapui = require('dapui')
 
-    require('mason-nvim-dap').setup {
+    require('mason-nvim-dap').setup({
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_installation = true,
@@ -96,11 +96,11 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
       },
-    }
+    })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
-    dapui.setup {
+    dapui.setup({
       -- Set icons to characters that are more likely to work in every terminal.
       --    Feel free to remove or use ones that you like more! :)
       --    Don't feel like these are good choices.
@@ -118,7 +118,7 @@ return {
           disconnect = '⏏',
         },
       },
-    }
+    })
 
     -- Change breakpoint icons
     -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
@@ -137,12 +137,12 @@ return {
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     -- Install golang specific config
-    require('dap-go').setup {
+    require('dap-go').setup({
       delve = {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-        detached = vim.fn.has 'win32' == 0,
+        detached = vim.fn.has('win32') == 0,
       },
-    }
+    })
   end,
 }

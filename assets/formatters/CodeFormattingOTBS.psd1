@@ -1,4 +1,4 @@
-# Copied from /Users/reis.holmes/.local/share/powershell/Modules/PSScriptAnalyzer/*/Settings/CodeFormattingOTBS.psd1 
+# Copied from /Users/reis.holmes/.local/share/powershell/Modules/PSScriptAnalyzer/*/Settings/CodeFormattingOTBS.psd1
 # Default used on VSCode
 @{
     IncludeRules = @(

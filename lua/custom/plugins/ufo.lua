@@ -24,7 +24,7 @@ return {
         end
       end, { desc = 'Peek Fold' })
 
-      require('ufo').setup {
+      require('ufo').setup({
 
         preview = {
           mappings = {
@@ -45,7 +45,7 @@ return {
         provider_selector = function(bufnr, filetype, buftype)
           return { 'treesitter', 'indent' }
         end,
-      }
+      })
     end,
   },
 }

@@ -4,12 +4,12 @@
 local kmset = vim.keymap.set -- Variable for keymap setting
 
 -- which-key local for adding groups etc
-local wk = require 'which-key'
-wk.add {
+local wk = require('which-key')
+wk.add({
   { '<leader>b', group = '[B]uffers' }, -- group
   { '<leader>l', group = '[L]ua cmds & [L]azy[G]it' }, -- group
   { '<leader>T', group = '[T]rouble' }, -- group
-}
+})
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
