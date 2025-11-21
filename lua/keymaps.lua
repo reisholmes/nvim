@@ -101,7 +101,7 @@ kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
 kmset('n', '<leader>g', '<cmd>GitBlameToggle<cr>', { desc = '[G]itBlame toggle' })
 
 -- Mini files
-kmset('n', '<leader>f', '<cmd>lua MiniFiles.open()<cr>', { desc = '[F]iletree' })
+kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>', { desc = '[F]iletree' })
 
 -- Show notifier history
 kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = '[N]otifier history' })
