@@ -59,6 +59,23 @@ return {
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
 
+        -- Integrate Sidekick NES (Next Edit Suggestions) with Tab
+        -- Priority: snippet forward -> sidekick NES -> LSP completion -> fallback
+        ['<Tab>'] = {
+          'snippet_forward',
+          function()
+            -- Only try sidekick if it's loaded (conditional on user/hostname)
+            local ok, sidekick = pcall(require, 'sidekick')
+            if ok then
+              return sidekick.nes_jump_or_apply()
+            end
+          end,
+          function()
+            return vim.lsp.completion.get()
+          end,
+          'fallback',
+        },
+
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
       },

@@ -106,9 +106,6 @@ kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<c
 -- Show notifier history
 kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = '[N]otifier history' })
 
--- Neoclip
-vim.keymap.set('n', '<leader>o', '<cmd>Telescope neoclip<CR>', { desc = 'Ne[O]clip' })
-
 -- Ufo plugin
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 --vim.keymap.set('n', 'zR', require('ufo').openAllFolds)

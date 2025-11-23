@@ -1,7 +1,8 @@
--- https://github.com/folke/trouble.nvim
+-- https://github.com/yorickpeterse/nvim-pqf
 return {
   'yorickpeterse/nvim-pqf',
-  init = function()
+  ft = 'qf',
+  config = function()
     require('pqf').setup()
   end,
 }

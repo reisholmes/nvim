@@ -5,6 +5,9 @@ return {
     { 'nvim-telescope/telescope.nvim' },
     -- {'ibhagwan/fzf-lua'},
   },
+  keys = {
+    { '<leader>o', '<cmd>Telescope neoclip<cr>', desc = 'Ne[O]clip' },
+  },
   config = function()
     require('neoclip').setup({
       keys = {
