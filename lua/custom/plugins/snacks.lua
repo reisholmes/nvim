@@ -3,6 +3,9 @@ return {
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
+  keys = {
+    { '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', desc = '[N]otifier history' },
+  },
   ---@type snacks.Config
   opts = {
     -- your configuration comes here

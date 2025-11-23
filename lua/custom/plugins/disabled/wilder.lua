@@ -1,5 +1,9 @@
 -- https://github.com/gelguy/wilder.nvim
 -- setup copied from https://github.com/folke/lazy.nvim/issues/561
+--
+-- DISABLED: This plugin is currently disabled.
+-- To re-enable, move this file from lua/custom/plugins/disabled/ to lua/custom/plugins/
+-- Note: This plugin enhances command-line completion with fuzzy finding and better UI
 return {
   'gelguy/wilder.nvim',
   --  config = function()

@@ -7,7 +7,10 @@ local kmset = vim.keymap.set -- Variable for keymap setting
 local wk = require('which-key')
 wk.add({
   { '<leader>b', group = '[B]uffers' },
+  { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
   { '<leader>l', group = '[L]ua cmds & [L]azy[G]it' },
+  { '<leader>s', group = '[S]earch' },
+  { '<leader>t', group = '[T]oggle' },
   { '<leader>T', group = '[T]rouble' },
   { 'gp', group = '[G]oto [P]review' },
 })
@@ -86,6 +89,3 @@ kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
 
 -- Mini.files
 kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>', { desc = '[F]ile tree' })
-
--- Show notifier history
-kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = '[N]otifier history' })
