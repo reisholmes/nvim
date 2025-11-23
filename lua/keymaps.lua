@@ -3,20 +3,21 @@
 
 local kmset = vim.keymap.set -- Variable for keymap setting
 
--- which-key local for adding groups etc
+-- Which-key group definitions
 local wk = require('which-key')
 wk.add({
-  { '<leader>b', group = '[B]uffers' }, -- group
-  { '<leader>l', group = '[L]ua cmds & [L]azy[G]it' }, -- group
-  { '<leader>T', group = '[T]rouble' }, -- group
+  { '<leader>b', group = '[B]uffers' },
+  { '<leader>l', group = '[L]ua cmds & [L]azy[G]it' },
+  { '<leader>T', group = '[T]rouble' },
+  { 'gp', group = '[G]oto [P]review' },
 })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+kmset('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list open' })
+kmset('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list open' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -24,42 +25,28 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+kmset('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- kmset('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+-- kmset('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+-- kmset('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+-- kmset('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+kmset('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+kmset('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+kmset('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+kmset('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
-})
+-- kmset("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
+-- kmset("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
+-- kmset("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
+-- kmset("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- vim: ts=2 sts=2 sw=2 et
 
@@ -97,22 +84,8 @@ kmset('n', '<leader>b$', '<cmd>blast<cr>', { desc = '[B]uffer Last' })
 kmset('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer Next' })
 kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
 
--- Git-Blame
-kmset('n', '<leader>g', '<cmd>GitBlameToggle<cr>', { desc = '[G]itBlame toggle' })
-
--- Mini files
-kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>', { desc = '[F]iletree' })
+-- Mini.files
+kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>', { desc = '[F]ile tree' })
 
 -- Show notifier history
 kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = '[N]otifier history' })
-
--- Ufo plugin
--- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
---vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
---vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
---vim.keymap.set('n', 'zK', function()
---  local winid = require('ufo').peekFoldedLinesUnderCursor()
---  if not winid then
---    vim.lsp.buf.hover()
---  end
---end, { desc = 'Peek Fold' })

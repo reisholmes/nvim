@@ -1,4 +1,4 @@
--- https://github.com/folke/trouble.nvim
+-- https://github.com/kevinhwang91/nvim-bqf
 return {
   -- QUICKFIX IMPROVEMENTS
   --

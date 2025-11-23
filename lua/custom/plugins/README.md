@@ -14,7 +14,9 @@ Pastel color scheme with Mocha flavour.
 ### diffview
 Git diff viewer with file history browser.
 - **URL**: https://github.com/sindrets/diffview.nvim
-- **Keymaps**: None
+- **Keymaps**:
+  - `<leader>gd` - Open git diff view
+  - `<leader>gh` - Open git file history
 
 ### git-blame
 Inline git blame annotations showing author, date, and summary.
@@ -36,6 +38,20 @@ Preview LSP definitions, implementations, and references in floating windows.
 Terminal UI for git commands in a floating window.
 - **URL**: https://github.com/kdheepak/lazygit.nvim
 - **Keymaps**: `<leader>lg` - Open LazyGit
+
+### sidekick
+AI-powered coding assistant with Next Edit Suggestions and CLI tools integration.
+- **URL**: https://github.com/folke/sidekick.nvim
+- **Conditional Loading**: Only loads for user `reis.holmes` on host `reisholmes`
+- **Keymaps**:
+  - `<Tab>` / `<leader>an` - NES jump or apply suggestion
+  - `<leader>aa` - Toggle AI CLI terminal
+  - `<leader>as` - Select AI CLI tool
+  - `<leader>ac` - Close AI CLI session
+  - `<leader>at` - Send selection/context to AI
+  - `<leader>af` - Send file to AI
+  - `<leader>ad` - Send diagnostics to AI
+  - `<leader>ap` - Select prompt template
 
 ### tiny-inline-diagnostic
 Modern inline LSP diagnostics with customizable appearance.
@@ -85,9 +101,16 @@ Clipboard manager with Telescope integration.
 
 ## Language Server Configuration
 
-### terraformls
-LSP configuration for Terraform and tflint.
-- **URL**: N/A (LSP configuration)
+Located in `lua/custom/plugins/lsp/` directory.
+
+### copilot
+GitHub Copilot LSP with Next Edit Suggestions support for sidekick.nvim.
+- **Location**: `lua/custom/plugins/lsp/copilot.lua`
+- **Keymaps**: None (LSP features)
+
+### terraformls & tflint
+LSP configurations for Terraform and tflint linting.
+- **Location**: `lua/custom/plugins/lsp/terraformls.lua`
 - **Keymaps**: None (LSP features)
 
 ---

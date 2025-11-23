@@ -1,8 +1,10 @@
 -- https://github.com/f-person/git-blame.nvim
 return {
   'f-person/git-blame.nvim',
-  -- load the plugin at startup
   event = 'VeryLazy',
+  keys = {
+    { '<leader>g', '<cmd>GitBlameToggle<cr>', desc = '[G]it Blame toggle' },
+  },
   opts = {
     enabled = true,
     -- Display options to avoid conflict with diagnostics
