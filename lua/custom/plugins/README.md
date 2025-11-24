@@ -34,10 +34,11 @@ Preview LSP definitions, implementations, and references in floating windows.
   - `gpr` - Preview references
   - `gP` - Close all previews
 
-### lazygit
-Terminal UI for git commands in a floating window.
-- **URL**: https://github.com/kdheepak/lazygit.nvim
+### lazygit (via snacks.nvim)
+Terminal UI for git commands in a floating window, integrated through snacks.nvim.
+- **URL**: https://github.com/folke/snacks.nvim (lazygit module)
 - **Keymaps**: `<leader>lg` - Open LazyGit
+- **Note**: Configured to use Nix-managed lazygit config
 
 ### sidekick
 AI-powered coding assistant with Next Edit Suggestions and CLI tools integration.
@@ -118,8 +119,14 @@ LSP configurations for Terraform and tflint linting.
 ## Quickfix Enhancement
 
 ### bqf (Better Quickfix)
-Enhanced quickfix with fuzzy search and filtering.
+Enhanced quickfix with fuzzy search, filtering, custom formatting, and syntax highlighting.
 - **URL**: https://github.com/kevinhwang91/nvim-bqf
+- **Features**:
+  - Custom quickfix text formatting with proper alignment
+  - Syntax highlighting with Catppuccin Mocha diagnostic colors
+  - Treesitter-optimized preview window
+  - FZF integration with delimiter support
+  - Spell checking disabled in quickfix windows
 - **Keymaps** (in quickfix):
   - `<Tab>` - Select items
   - `zn` - Keep selected items
@@ -127,11 +134,8 @@ Enhanced quickfix with fuzzy search and filtering.
   - `zf` - Fuzzy search items
   - `<Ctrl-f>` - Scroll down
   - `<Ctrl-b>` - Scroll up
-
-### pqf (Pretty Quickfix)
-Prettier quickfix list formatting.
-- **URL**: https://github.com/yorickpeterse/nvim-pqf
-- **Keymaps**: None
+  - `<Ctrl-s>` - Open in split (fzf mode)
+  - `<Ctrl-o>` - Toggle all selections (fzf mode)
 
 ---
 
@@ -143,14 +147,28 @@ Native Lua implementation of fzy fuzzy finder algorithm.
 - **Keymaps**: None (dependency)
 
 ### render-markdown
-Real-time markdown rendering with treesitter.
+Real-time markdown rendering with treesitter and mini.icons integration.
 - **URL**: https://github.com/MeanderingProgrammer/render-markdown.nvim
 - **Keymaps**: None (automatic)
+- **Dependencies**: Uses mini.icons for icon rendering
 
 ### snacks
-Collection of small utilities: bigfile, dashboard, indent, notifier, terminal.
+Collection of small utilities: bigfile, dashboard, indent, input, lazygit, notifier, quickfile, terminal.
 - **URL**: https://github.com/folke/snacks.nvim
-- **Keymaps**: `<leader>n` - Show notifier history
+- **Enabled Modules**:
+  - `bigfile` - Performance optimizations for large files
+  - `dashboard` - Startup dashboard
+  - `indent` - Indent guides and scope visualization
+  - `input` - Enhanced vim.ui.input
+  - `lazygit` - LazyGit integration
+  - `notifier` - Notification system
+  - `quickfile` - Fast file loading
+  - `terminal` - Floating terminal
+- **Disabled Modules**:
+  - `words` - Disabled to avoid conflict with mini.cursorword
+- **Keymaps**:
+  - `<leader>n` - Show notifier history
+  - `<leader>lg` - Open LazyGit
 
 ### ufo (Ultra Fold)
 Modern code folding with treesitter and LSP support.
