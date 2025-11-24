@@ -13,7 +13,7 @@ require('lazy').setup({
   -- Core editing
   require('kickstart.plugins.autopairs'),
   require('kickstart.plugins.guess-indent'),
-  require('kickstart.plugins.indent_line'),
+  -- require('kickstart.plugins.indent_line'), -- Replaced by snacks.indent
   require('kickstart.plugins.treesitter'),
 
   -- LSP and completion
