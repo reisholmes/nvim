@@ -51,15 +51,25 @@ return {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local open_with_trouble = require('trouble.sources.telescope').open
+      local add_to_trouble = require('trouble.sources.telescope').add
+
       require('telescope').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          mappings = {
+            i = {
+              ['<c-t>'] = open_with_trouble,
+              ['<c-a>'] = add_to_trouble,
+            },
+            n = {
+              ['<c-t>'] = open_with_trouble,
+              ['<c-a>'] = add_to_trouble,
+            },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {

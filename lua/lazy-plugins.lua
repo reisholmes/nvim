@@ -35,8 +35,7 @@ require('lazy').setup({
 
   -- Optional plugins (uncomment to enable)
   -- require 'kickstart.plugins.debug',      -- DAP debugging support
-  -- require 'kickstart.plugins.neo-tree',   -- Alternative file explorer
-  -- require 'kickstart.plugins.tokyonight', -- Alternative colorscheme
+  require('kickstart.plugins.neo-tree'), -- Alternative file explorer
 
   -- Custom plugins from lua/custom/plugins/*.lua
   { import = 'custom.plugins' },
