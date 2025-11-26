@@ -51,8 +51,7 @@ return {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
-      local open_with_trouble = require('trouble.sources.telescope').open
-      local add_to_trouble = require('trouble.sources.telescope').add
+      local trouble_telescope = require('trouble.sources.telescope')
 
       require('telescope').setup({
         -- You can put your default mappings / updates / etc. in here
@@ -61,12 +60,28 @@ return {
         defaults = {
           mappings = {
             i = {
-              ['<c-t>'] = open_with_trouble,
-              ['<c-a>'] = add_to_trouble,
+              ['<c-t>'] = {
+                trouble_telescope.open,
+                type = 'action',
+                opts = { desc = 'Open all in Trouble' },
+              },
+              ['<c-a>'] = {
+                trouble_telescope.add,
+                type = 'action',
+                opts = { desc = 'Add filtered to Trouble' },
+              },
             },
             n = {
-              ['<c-t>'] = open_with_trouble,
-              ['<c-a>'] = add_to_trouble,
+              ['<c-t>'] = {
+                trouble_telescope.open,
+                type = 'action',
+                opts = { desc = 'Open all in Trouble' },
+              },
+              ['<c-a>'] = {
+                trouble_telescope.add,
+                type = 'action',
+                opts = { desc = 'Add filtered to Trouble' },
+              },
             },
           },
         },

@@ -1,0 +1,6 @@
+# markdownlint-cli2 configuration
+# See https://github.com/DavidAnson/markdownlint-cli2
+
+config:
+  # Allow HTML tags (details/summary are valid in GitHub markdown)
+  MD033: false

@@ -18,6 +18,7 @@ return {
         'nix',
         'powershell',
         'terraform',
+        'toml',
         'query',
         'vim',
         'vimdoc',
