@@ -9,19 +9,12 @@ return {
     indent_guides = true, -- Show hierarchy indentation
     max_items = 200, -- Limit items shown
     multiline = true, -- Support multi-line messages
+    preview = {
+      type = 'main',
+      scratch = false,
+    },
   },
   cmd = 'Trouble',
-  config = function(_, opts)
-    require('trouble').setup(opts)
-
-    -- Auto-open Trouble when quickfix is populated
-    vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-      group = vim.api.nvim_create_augroup('TroubleQuickfix', { clear = true }),
-      callback = function()
-        vim.cmd('Trouble qflist open')
-      end,
-    })
-  end,
   keys = {
     {
       '<leader>Txx',
