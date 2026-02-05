@@ -241,7 +241,17 @@ return {
       -- ## NIXPKGS NATIVE METHOD ##
       -- Enable here when you have already got the language server installed on your system
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-      vim.lsp.enable({ 'copilot', 'lua_ls', 'nixd', 'powershell_es', 'stylua', 'terraformls', 'tflint' })
+      vim.lsp.enable({
+        'copilot',
+        'gopls',
+        'golangci_lint_ls',
+        'lua_ls',
+        'nixd',
+        'powershell_es',
+        'stylua',
+        'terraformls',
+        'tflint',
+      })
 
       -- Add the LSP configs below
       -- Some more complex configs have been exported out to lua/custom/plugins/lsp
