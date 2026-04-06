@@ -32,6 +32,7 @@ return {
       end,
 
       formatters_by_ft = {
+        go = { 'gofmt' },
         lua = { 'stylua' },
         json = { 'jq' },
         markdown = { 'markdownlint-cli2' },
