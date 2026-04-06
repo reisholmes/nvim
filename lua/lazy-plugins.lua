@@ -17,6 +17,7 @@ require('lazy').setup({
   require('kickstart.plugins.treesitter'),
 
   -- LSP and completion
+
   require('kickstart.plugins.blink-cmp'),
   require('kickstart.plugins.lspconfig'),
 

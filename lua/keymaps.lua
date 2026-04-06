@@ -21,7 +21,7 @@ kmset('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic Config & Keymaps
 -- See :help vim.diagnostic.Opts
-vim.diagnostic.config {
+vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = true,
   float = { border = 'rounded', source = 'if_many' },
@@ -32,8 +32,8 @@ vim.diagnostic.config {
   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
 
   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
-  jump = { float = true },
-}
+  jump = { on_jump = true },
+})
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 

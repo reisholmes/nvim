@@ -91,12 +91,34 @@ return {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+
+        -- Added: Rounded borders for the completion menu
+        menu = {
+          border = 'rounded',
+        },
+        documentation = {
+          auto_show = false,
+          auto_show_delay_ms = 500,
+          -- Added: Rounded borders for the documentation popup
+          window = {
+            border = 'rounded',
+            winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
+          },
+        },
+      },
+
+      -- Added: Rounded borders for the signature help (what was in your screenshot)
+      signature = {
+        enabled = true,
+        window = {
+          border = 'rounded',
+          winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder',
+        },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'markdown' },
+        default = { 'lsp', 'path', 'snippets', 'markdown' },
         providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
           markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink' },
         },
       },
@@ -110,7 +132,7 @@ return {
       -- the rust implementation via `'prefer_rust_with_warning'`
       --
       -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+      fuzzy = { implementation = 'rust' },
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },

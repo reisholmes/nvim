@@ -8,6 +8,19 @@ return {
         flavour = 'mocha',
         transparent_background = false,
 
+        custom_highlights = function(colors)
+          return {
+            -- This makes the floating window background match your main editor background
+            NormalFloat = { bg = colors.base },
+            FloatBorder = { fg = colors.blue, bg = colors.base },
+
+            -- Optional: specifically for blink.cmp if it's still behaving oddly
+            BlinkCmpMenu = { bg = colors.base },
+            BlinkCmpDoc = { bg = colors.base },
+            BlinkCmpSignatureHelp = { bg = colors.base },
+          }
+        end,
+
         integrations = {
           blink_cmp = true,
           lsp_trouble = true,
