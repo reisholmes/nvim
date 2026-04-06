@@ -13,6 +13,9 @@
 -- options to `gitsigns.nvim`.
 --
 -- See `:help gitsigns` to understand what the configuration keys do
+
+---@module 'lazy'
+---@type LazySpec
 return {
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -27,11 +30,14 @@ return {
       on_attach = function(bufnr)
         local gitsigns = require('gitsigns')
 
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
+      -- Navigation
+      map('n', ']c', function()
+        if vim.wo.diff then
+          vim.cmd.normal { ']c', bang = true }
+        else
+          gitsigns.nav_hunk 'next'
         end
+      end, { desc = 'Jump to next git [c]hange' })
 
         -- Navigation
         map('n', ']c', function()
