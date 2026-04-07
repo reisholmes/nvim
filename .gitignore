@@ -4,6 +4,9 @@ test.sh
 nvim
 
 spell/
-lazy-lock.json
+
+# lazy-lock.json was removed from here
+# it's now tracked for reproducible plugin versions
+# Run :Lazy update and commit the new lock file to upgrade
 
 Session.vim

@@ -30,11 +30,11 @@ return {
       desc = 'Toggle [Q]uickfix',
     },
     {
-      '<leader>l',
+      '<leader>tl',
       function()
         require('quicker').toggle({ loclist = true })
       end,
-      desc = 'Toggle [L]oclist',
+      desc = '[T]oggle [L]oclist',
     },
   },
 }

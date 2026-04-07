@@ -4,8 +4,8 @@ return {
   event = 'VeryLazy',
   -- Only load if user is reis.holmes on reisholmes
   cond = function()
-    local username = vim.loop.os_get_passwd().username
-    local hostname = vim.loop.os_gethostname()
+    local username = vim.uv.os_get_passwd().username
+    local hostname = vim.uv.os_gethostname()
     return username == 'reis.holmes' and hostname == 'reisholmes'
   end,
   dependencies = {
