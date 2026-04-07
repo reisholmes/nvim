@@ -1,19 +1,3 @@
--- Alternatively, use `config = function() ... end` for full control over the configuration.
--- If you prefer to call `setup` explicitly, use:
---    {
---        'lewis6991/gitsigns.nvim',
---        config = function()
---            require('gitsigns').setup({
---                -- Your gitsigns configuration here
---            })
---        end,
---    }
---
--- Here is a more advanced example where we pass configuration
--- options to `gitsigns.nvim`.
---
--- See `:help gitsigns` to understand what the configuration keys do
-
 ---@module 'lazy'
 ---@type LazySpec
 return {
@@ -56,14 +40,12 @@ return {
       end, { desc = 'Jump to previous git [c]hange' })
 
       -- Actions
-      -- visual mode
       map('v', '<leader>hs', function()
         gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
       end, { desc = 'git [s]tage hunk' })
       map('v', '<leader>hr', function()
         gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
       end, { desc = 'git [r]eset hunk' })
-      -- normal mode
       map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
       map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
       map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
@@ -81,6 +63,7 @@ return {
         gitsigns.setqflist('all')
       end)
       map('n', '<leader>hq', gitsigns.setqflist)
+
       -- Toggles
       map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
       map('n', '<leader>tw', gitsigns.toggle_word_diff)
@@ -90,4 +73,3 @@ return {
     end,
   },
 }
--- vim: ts=2 sts=2 sw=2 et
