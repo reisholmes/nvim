@@ -60,3 +60,10 @@ repos:
             lua/keymaps\.lua$|
             lua/kickstart/plugins/(telescope|gitsigns)\.lua$
           )
+
+  # Markdown linting
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.19.1
+    hooks:
+      - id: markdownlint-cli2
+        args: ['--fix']

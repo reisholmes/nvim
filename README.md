@@ -19,14 +19,23 @@ A starting point for Neovim that is:
 Kickstart.nvim targets *only* the latest
 ['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
 ['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
-If you are experiencing issues, please make sure you have the latest versions.
+If you are experiencing issues, please make sure you have at least the latest
+stable version. Most likely, you want to install neovim via a [package
+manager](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-package).
+To check your neovim version, run `nvim --version` and make sure it is not
+below the latest
+['stable'](https://github.com/neovim/neovim/releases/tag/stable) version. If
+your chosen install method only gives you an outdated version of neovim, find
+alternative [installation methods below](#alternative-neovim-installation-methods).
 
 ### Install External Dependencies
 
 External Requirements:
-- Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
-- [ripgrep](https://github.com/BurntSushi/ripgrep#installation),
+
+* Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
+* [ripgrep](https://github.com/BurntSushi/ripgrep#installation),
   [fd-find](https://github.com/sharkdp/fd#installation)
+- [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md#installation)
 - Clipboard tool (xclip/xsel/win32yank or other depending on the platform)
 - A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
   - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
@@ -37,21 +46,22 @@ External Requirements:
   - etc.
 
 > [!NOTE]
-> See [Install Recipes](#install-recipes) for additional Windows and Linux specific notes
-> and quick install snippets
+> See [Install Recipes](#install-recipes) for additional Windows and
+> Linux specific notes and quick install snippets
 
 ### Install Kickstart
 
 > [!NOTE]
 > [Backup](#faq) your previous configuration (if any exists)
 
-Neovim's configurations are located under the following paths, depending on your OS:
+Neovim's configurations are located under the following paths, depending
+on your OS:
 
 | OS | PATH |
 | :- | :--- |
 | Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
-| Windows (cmd)| `%localappdata%\nvim\` |
-| Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
+| Windows (cmd) | `%localappdata%\nvim\` |
+| Windows (powershell) | `$env:LOCALAPPDATA\nvim\` |
 
 #### Recommended Step
 
@@ -85,13 +95,13 @@ git clone https://github.com/dam9000/kickstart-modular.nvim.git "${XDG_CONFIG_HO
 
 If you're using `cmd.exe`:
 
-```
+```cmd
 git clone https://github.com/dam9000/kickstart-modular.nvim.git "%localappdata%\nvim"
 ```
 
 If you're using `powershell.exe`
 
-```
+```powershell
 git clone https://github.com/dam9000/kickstart-modular.nvim.git "${env:LOCALAPPDATA}\nvim"
 ```
 
@@ -132,7 +142,7 @@ examples of adding popularly requested plugins.
     to maintain multiple configurations. For example, you can install the kickstart
     configuration in `~/.config/nvim-kickstart` and create an alias:
 
-    ```
+    ```sh
     alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
     ```
 
@@ -142,9 +152,11 @@ examples of adding popularly requested plugins.
     distribution that you would like to try out.
 * What if I want to "uninstall" this configuration:
   * See [lazy.nvim uninstall](https://lazy.folke.io/usage#-uninstalling) information
-* Why is the kickstart `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
-  * The main purpose of kickstart is to serve as a teaching tool and a reference
-    configuration that someone can easily use to `git clone` as a basis for their own.
+* Why is the kickstart `init.lua` a single file? Wouldn't it make sense
+  to split it into multiple files?
+  * The main purpose of kickstart is to serve as a teaching tool and a
+    reference configuration that someone can easily use to `git clone` as
+    a basis for their own.
     As you progress in learning Neovim and Lua, you might consider splitting `init.lua`
     into smaller parts. A fork of kickstart that does this while maintaining the
     same functionality is available here:
@@ -165,7 +177,8 @@ After installing all the dependencies continue with the [Install Kickstart](#ins
 #### Windows Installation
 
 <details><summary>Windows with Microsoft C++ Build Tools and CMake</summary>
-Installation may require installing build tools and updating the run command for `telescope-fzf-native`
+Installation may require installing build tools and updating the run command
+for `telescope-fzf-native`
 
 See `telescope-fzf-native` documentation for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
 
@@ -174,38 +187,41 @@ This requires:
 * Install CMake and the Microsoft C++ Build Tools on Windows
 
 ```lua
-{'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+{
+  'nvim-telescope/telescope-fzf-native.nvim',
+  build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && '..
+          'cmake --build build --config Release && '..
+          'cmake --install build --prefix build'
+}
 ```
 
 </details>
 <details><summary>Windows with gcc/make using chocolatey</summary>
-Alternatively, one can install gcc and make which don't require changing the config,
-the easiest way is to use choco:
+Alternatively, one can install gcc and make which don't require changing the
+config, the easiest way is to use choco:
 
 1. install [chocolatey](https://chocolatey.org/install)
-either follow the instructions on the page or use winget,
-run in cmd as **admin**:
+   either follow the instructions on the page or use winget,
+   run in cmd as **admin**:
 
-```
-winget install --accept-source-agreements chocolatey.chocolatey
-```
+   ```cmd
+   winget install --accept-source-agreements chocolatey.chocolatey
+   ```
 
 2. install all requirements using choco, exit the previous cmd and
 open a new one so that choco path is set, and run in cmd as **admin**:
-
 ```
-choco install -y neovim git ripgrep wget fd unzip gzip mingw make
+choco install -y neovim git ripgrep wget fd unzip gzip mingw make tree-sitter
 ```
-
 </details>
 <details><summary>WSL (Windows Subsystem for Linux)</summary>
 
-```
+```sh
 wsl --install
 wsl
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo apt update
-sudo apt install make gcc ripgrep unzip git xclip neovim
+sudo apt install make gcc ripgrep fd-find tree-sitter-cli unzip git xclip neovim
 ```
 
 </details>
@@ -214,18 +230,18 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 
 <details><summary>Ubuntu Install Steps</summary>
 
-```
+```sh
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo apt update
-sudo apt install make gcc ripgrep unzip git xclip neovim
+sudo apt install make gcc ripgrep fd-find tree-sitter-cli unzip git xclip neovim
 ```
 
 </details>
 <details><summary>Debian Install Steps</summary>
 
-```
+```sh
 sudo apt update
-sudo apt install make gcc ripgrep unzip git xclip curl
+sudo apt install make gcc ripgrep fd-find tree-sitter-cli unzip git xclip curl
 
 # Now we install nvim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
@@ -242,7 +258,7 @@ sudo ln -sf /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/
 <details><summary>Fedora Install Steps</summary>
 
 ```
-sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
+sudo dnf install -y gcc make git ripgrep fd-find tree-sitter-cli unzip neovim
 ```
 
 </details>
@@ -250,7 +266,80 @@ sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
 <details><summary>Arch Install Steps</summary>
 
 ```
-sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
+sudo pacman -S --noconfirm --needed gcc make git ripgrep fd tree-sitter-cli unzip neovim
 ```
+
+### Alternative neovim installation methods
+
+For some systems it is not unexpected that the [package manager installation
+method](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-package)
+recommended by neovim is significantly behind. If that is the case for you,
+pick one of the following methods that are known to deliver fresh neovim versions very quickly.
+They have been picked for their popularity and because they make installing and updating
+neovim to the latest versions easy. You can also find more detail about the
+available methods being discussed
+[here](https://github.com/nvim-lua/kickstart.nvim/issues/1583).
+
+
+<details><summary>Bob</summary>
+
+[Bob](https://github.com/MordechaiHadad/bob) is a Neovim version manager for
+all platforms. Simply install
+[rustup](https://rust-lang.github.io/rustup/installation/other.html),
+and run the following commands:
+
+```bash
+rustup default stable
+rustup update stable
+cargo install bob-nvim
+bob use stable
+```
+
+</details>
+
+<details><summary>Homebrew</summary>
+
+[Homebrew](https://brew.sh) is a package manager popular on Mac and Linux.
+Simply install using [`brew install`](https://formulae.brew.sh/formula/neovim).
+
+</details>
+
+<details><summary>Flatpak</summary>
+
+Flatpak is a package manager for applications that allows developers to package their applications
+just once to make it available on all Linux systems. Simply [install flatpak](https://flatpak.org/setup/)
+and setup [flathub](https://flathub.org/setup) to [install neovim](https://flathub.org/apps/io.neovim.nvim).
+
+</details>
+
+<details><summary>asdf and mise-en-place</summary>
+
+[asdf](https://asdf-vm.com/) and [mise](https://mise.jdx.dev/) are tool version managers,
+mostly aimed towards project-specific tool versioning. However both support managing tools
+globally in the user-space as well:
+
+<details><summary>mise</summary>
+
+[Install mise](https://mise.jdx.dev/getting-started.html), then run:
+
+```bash
+mise plugins install neovim
+mise use neovim@stable
+```
+
+</details>
+
+<details><summary>asdf</summary>
+
+[Install asdf](https://asdf-vm.com/guide/getting-started.html), then run:
+
+```bash
+asdf plugin add neovim
+asdf install neovim stable
+asdf set neovim stable --home
+asdf reshim neovim
+```
+
+</details>
 
 </details>

@@ -1,121 +1,82 @@
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
+-- Basic Keymaps
+local kmset = vim.keymap.set
 
-local kmset = vim.keymap.set -- Variable for keymap setting
-
--- which-key local for adding groups etc
+-- Which-key group definitions
 local wk = require('which-key')
 wk.add({
-  { '<leader>b', group = '[B]uffers' }, -- group
-  { '<leader>l', group = '[L]ua cmds & [L]azy[G]it' }, -- group
-  { '<leader>T', group = '[T]rouble' }, -- group
+  { '<leader>b', group = '[B]uffers' },
+  { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+  { '<leader>l', group = '[L]azy[G]it' },
+  { '<leader>s', group = '[S]earch' },
+  { '<leader>t', group = '[T]oggle' },
+  { '<leader>T', group = '[T]rouble' },
+  { 'gp', group = '[G]oto [P]review' },
+  -- 0.12 built-in LSP mappings (for which-key discoverability)
+  { 'grn', desc = 'LSP: Rename' },
+  { 'gra', desc = 'LSP: Code Action' },
+  { 'grx', desc = 'LSP: Code Lens' },
 })
 
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+kmset('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list open' })
+-- Built-in undotree (0.12)
+vim.cmd.packadd('nvim.undotree')
+kmset('n', '<leader>tu', '<cmd>Undotree<CR>', { desc = '[T]oggle [U]ndotree' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+-- Diagnostic Config (single source of truth)
+-- tiny-inline-diagnostic.lua overrides virtual_text = false on LspAttach
+vim.diagnostic.config({
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = { min = vim.diagnostic.severity.ERROR } },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN] = '󰀪 ',
+      [vim.diagnostic.severity.INFO] = '󰋽 ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+    },
+  },
+  virtual_text = true,
+  virtual_lines = false,
+  jump = { float = true },
 })
 
--- vim: ts=2 sts=2 sw=2 et
+-- Terminal
+kmset('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Copy to Clipboard
+-- Window navigation
+kmset('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+kmset('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+kmset('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+kmset('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Clipboard
 kmset('n', '<leader>Y', '"+yg_', { desc = '[Y]ank to last non-blank char into clipboard' })
 kmset('n', '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
 kmset('n', '<leader>yy', '"+yy', { desc = '[Y]ank line into clipboard' })
 kmset('v', '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
-
--- Paste from clipboard
 kmset('n', '<leader>P', '"+P', { desc = '[P]aste from clipboard' })
-
--- Keep copied word in buffer when pasting, send overwritten word to void register
 kmset('x', '<leader>p', [["_dP]], { desc = '[P]aste but keep word in buffer' })
+kmset({ 'n', 'v' }, '<leader>D', [["_d]], { desc = "[D]elete to void register" })
 
--- Delete word to void register, don't override buffer
-kmset({ 'n', 'v' }, '<leader>D', [["_d]], { desc = "[D]elete word to void register, don't override buffer" })
-
--- When in visual mode, allows moving highlighted lines
+-- Move selected lines in visual mode
 kmset('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'move selection up' })
 kmset('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selection down' })
 
--- Keep cursor centered when half page jumping
+-- Keep cursor centered
 kmset('n', '<C-d>', '<C-d>zz')
 kmset('n', '<C-u>', '<C-u>zz')
-
--- Keep cursor in the middle when searching
 kmset('n', 'n', 'nzzzv')
 kmset('n', 'N', 'Nzzzv')
 
--- Buffer Manipulation
+-- Buffer manipulation
 kmset('n', '<leader>bd', '<cmd>bd<cr>', { desc = '[B]uffer Delete' })
 kmset('n', '<leader>b0', '<cmd>bfirst<cr>', { desc = '[B]uffer First' })
 kmset('n', '<leader>b$', '<cmd>blast<cr>', { desc = '[B]uffer Last' })
 kmset('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer Next' })
 kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
 
--- Git-Blame
-kmset('n', '<leader>g', '<cmd>GitBlameToggle<cr>', { desc = '[G]itBlame toggle' })
-
--- Mini files
-kmset('n', '<leader>f', '<cmd>lua MiniFiles.open()<cr>', { desc = '[F]iletree' })
-
--- Show notifier history
-kmset('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = '[N]otifier history' })
-
--- Neoclip
-vim.keymap.set('n', '<leader>o', '<cmd>Telescope neoclip<CR>', { desc = 'Ne[O]clip' })
-
--- Ufo plugin
--- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
---vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
---vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
---vim.keymap.set('n', 'zK', function()
---  local winid = require('ufo').peekFoldedLinesUnderCursor()
---  if not winid then
---    vim.lsp.buf.hover()
---  end
---end, { desc = 'Peek Fold' })
+-- Mini.files
+kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>', { desc = '[F]ile tree' })

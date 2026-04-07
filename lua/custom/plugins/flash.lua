@@ -1,4 +1,4 @@
--- https://github.com/folke/trouble.nvim
+-- https://github.com/folke/flash.nvim
 return {
   'folke/flash.nvim',
   event = 'VeryLazy',

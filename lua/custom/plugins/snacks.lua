@@ -3,6 +3,10 @@ return {
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
+  keys = {
+    { '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', desc = '[N]otifier history' },
+    { '<leader>lg', function() Snacks.lazygit() end, desc = 'LazyGit' },
+  },
   ---@type snacks.Config
   opts = {
     -- your configuration comes here
@@ -14,11 +18,15 @@ return {
       enabled = true,
     },
     input = { enabled = true },
+    lazygit = {
+      enabled = true,
+      configure = false, -- Use existing lazygit config (managed by Nix)
+    },
     notifier = { enabled = true, timeout = 5000 },
     terminal = { enabled = true },
     quickfile = { enabled = true },
     -- scroll = { enabled = true },
     -- statuscolumn = { enabled = true },
-    words = { enabled = true },
+    words = { enabled = false }, -- Disabled: conflicts with mini.cursorword
   },
 }
