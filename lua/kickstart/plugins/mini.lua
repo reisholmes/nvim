@@ -19,11 +19,12 @@ return {
       statusline.section_location = function() return '%2l:%-2v' end
 
       -- Show LSP progress in statusline (replaces fidget.nvim)
+      local orig_section_lsp = statusline.section_lsp
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_lsp = function()
-        local progress = vim.ui.progress_status()
-        if progress and progress ~= '' then return progress end
-        return MiniStatusline.section_lsp({ trunc_width = 75 })
+      statusline.section_lsp = function(args)
+        local ok, progress = pcall(vim.ui.progress_status)
+        if ok and progress and progress ~= '' then return progress end
+        return orig_section_lsp(args)
       end
 
       require('mini.cursorword').setup()
