@@ -51,7 +51,7 @@ return {
         end,
       })
 
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      vim.filetype.add({ extension = { gotmpl = 'gotmpl' } })
 
       -- LSP servers (installed via nixpkgs, not Mason)
       vim.lsp.enable({
@@ -104,7 +104,7 @@ return {
       local nix_path = get_nix_path()
 
       vim.lsp.config('nixd', {
-        cmd = { 'nixd' },
+        cmd = { 'nixd', '--log=error' },
         filetypes = { 'nix' },
         root_markers = { 'flake.nix', '.git' },
         settings = {

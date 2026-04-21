@@ -40,7 +40,7 @@ vim.diagnostic.config({
   },
   virtual_text = true,
   virtual_lines = false,
-  jump = { float = true },
+  jump = { on_jump = vim.diagnostic.open_float },
 })
 
 -- Terminal
@@ -59,7 +59,7 @@ kmset('n', '<leader>yy', '"+yy', { desc = '[Y]ank line into clipboard' })
 kmset('v', '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
 kmset('n', '<leader>P', '"+P', { desc = '[P]aste from clipboard' })
 kmset('x', '<leader>p', [["_dP]], { desc = '[P]aste but keep word in buffer' })
-kmset({ 'n', 'v' }, '<leader>D', [["_d]], { desc = "[D]elete to void register" })
+kmset({ 'n', 'v' }, '<leader>D', [["_d]], { desc = '[D]elete to void register' })
 
 -- Move selected lines in visual mode
 kmset('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'move selection up' })
@@ -77,6 +77,7 @@ kmset('n', '<leader>b0', '<cmd>bfirst<cr>', { desc = '[B]uffer First' })
 kmset('n', '<leader>b$', '<cmd>blast<cr>', { desc = '[B]uffer Last' })
 kmset('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer Next' })
 kmset('n', '<leader>bN', '<cmd>bprevious<cr>', { desc = '[B]uffer Previous' })
+kmset('n', '<leader>bp', '<cmd>let @+ = expand("%:p")<cr>', { desc = '[B]uffer [P]ath to clipboard' })
 
 -- Mini.files
 kmset('n', '<leader>f', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>', { desc = '[F]ile tree' })
