@@ -32,6 +32,8 @@ return {
       keymap = {
         preset = 'default',
 
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+
         -- Tab: snippet forward -> sidekick NES -> fallback
         ['<Tab>'] = {
           'snippet_forward',
@@ -48,7 +50,12 @@ return {
       appearance = { nerd_font_variant = 'mono' },
 
       completion = {
-        menu = { border = 'rounded' },
+        menu = {
+          auto_show = function()
+            return vim.b.blink_auto_show or false
+          end,
+          border = 'rounded',
+        },
         documentation = {
           auto_show = false,
           auto_show_delay_ms = 500,

@@ -22,6 +22,10 @@ kmset('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Built-in undotree (0.12)
 vim.cmd.packadd('nvim.undotree')
 kmset('n', '<leader>tu', '<cmd>Undotree<CR>', { desc = '[T]oggle [U]ndotree' })
+kmset('n', '<leader>ta', function()
+  vim.b.blink_auto_show = not vim.b.blink_auto_show
+  vim.notify('Autocomplete: ' .. (vim.b.blink_auto_show and 'auto' or 'manual'))
+end, { desc = '[T]oggle [A]utocomplete' })
 
 -- Diagnostic Config (single source of truth)
 -- tiny-inline-diagnostic.lua overrides virtual_text = false on LspAttach
