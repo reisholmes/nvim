@@ -8,7 +8,14 @@ return {
         windows = { preview = true, width_preview = 40 },
       })
 
-      require('mini.ai').setup({ n_lines = 500 })
+      require('mini.ai').setup({
+        -- NOTE: Avoid conflicts with the built-in incremental selection mappings on Neovim>=0.12 (see `:help treesitter-incremental-selection`)
+        mappings = {
+          around_next = 'aa',
+          inside_next = 'ii',
+        },
+        n_lines = 500,
+      })
       require('mini.surround').setup()
 
       -- Statusline
@@ -28,7 +35,12 @@ return {
       end
 
       require('mini.cursorword').setup()
-      require('mini.icons').setup()
+      -- If a nerd font is available, load the icons module for pretty icons in various plugins.
+      if vim.g.have_nerd_font then
+        require('mini.icons').setup()
+        -- Used for backwards compatibility with plugins that require `nvim-web-devicons` (e.g. telescope.nvim)
+        MiniIcons.mock_nvim_web_devicons()
+      end
       require('mini.tabline').setup({ use_icons = true })
       require('mini.align').setup()
       require('mini.operators').setup()

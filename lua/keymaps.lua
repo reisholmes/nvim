@@ -44,7 +44,15 @@ vim.diagnostic.config({
   },
   virtual_text = true,
   virtual_lines = false,
-  jump = { on_jump = vim.diagnostic.open_float },
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float {
+        bufnr = bufnr,
+        scope = 'cursor',
+        focus = false,
+      }
+    end,
+  },
 })
 
 -- Terminal

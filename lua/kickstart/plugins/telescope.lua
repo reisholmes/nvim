@@ -15,7 +15,6 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       local trouble_telescope = require('trouble.sources.telescope')
@@ -103,7 +102,7 @@ return {
       end, { desc = '[S]earch [/] in Open Files' })
 
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files({ cwd = vim.fn.stdpath('config') })
+        builtin.find_files({ cwd = vim.fn.stdpath('config'), follow = true })
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
