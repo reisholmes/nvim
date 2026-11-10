@@ -176,6 +176,6 @@ When we want to drop the lazy.nvim bootstrap dependency, or when vim.pack mature
 ## Next actions
 
 - [x] Applied backports 1-5 on `dev` as 0182593, with the lockfile refresh in 484df0a.
-- [ ] Run the 5 test checks above in a real nvim 0.12.6 session.
+- [x] Ran the 5 test checks above in a real nvim 0.12.6 session.
 - [x] Updated the audited-against SHAs at the top of this doc.
 - [x] Decided the migration: stay on lazy.nvim and defer the vim.pack project.
